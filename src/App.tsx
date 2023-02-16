@@ -9,6 +9,7 @@ const sorter: Sorter = {
 	lastPick: 'time',
 }
 
+
 function App() {
 	const [trades, setTrades] = useState<Trades[] | null>(null)
 	const [dayInfo, setDayInfo] = useState<DayInfo | null>(null)
@@ -24,9 +25,9 @@ function App() {
 		setDayInfo(dayAvgData.data)
 	}
 
-	const sortData = (type: Sorter['lastPick']) => {
+	const sortData = (sortBy: Sorter['lastPick']) => {
 		const copy = [...(trades || [])]
-		if (type === sorter.lastPick) {
+		if (sortBy === sorter.lastPick) {
 			if (sorter.order === 'asc') {
 				sorter.order = 'desc'
 			} else {
@@ -34,9 +35,9 @@ function App() {
 			}
 		}
 
-		if (type !== sorter.lastPick) {
+		if (sortBy !== sorter.lastPick) {
 			sorter.order = 'desc'
-			sorter.lastPick = type
+			sorter.lastPick = sortBy
 		}
     
 		const sort = {
@@ -73,7 +74,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Search getPairInfo={getPairInfo} />
-			<SearchResults trades={trades} dayInfo={dayInfo} sortData={sortData} />
+			<SearchResults trades={trades} dayInfo={dayInfo} sortData={sortData} sorter={sorter} />
 		</div>
 	)
 }

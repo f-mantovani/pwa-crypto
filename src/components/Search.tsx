@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {ColumnCentered} from '../styles/containers.js'
 
 type SearchProps = {
   getPairInfo: (pair: string) => void;
@@ -19,14 +20,9 @@ export const Search = ({ getPairInfo }: SearchProps) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '2rem',
-				alignItems: 'center',
-				marginTop: '2rem',
-			}}
+		
 		>
+			<ColumnCentered gap={1} mt={2}>
 			<label>
 				Ticker:
 				<input type='text' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} />
@@ -37,6 +33,7 @@ export const Search = ({ getPairInfo }: SearchProps) => {
 			</label>
 
 			<button> Search </button>
+			</ColumnCentered>
 		</form>
 	)
 }

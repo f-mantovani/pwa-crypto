@@ -1,6 +1,8 @@
-import axios from 'axios'
-
+import axios, { AxiosInstance } from 'axios'
+import { Trades, DayInfo } from './types'
 class BinnaceConnect {
+	api: AxiosInstance
+
 	constructor() {
 		this.api = axios.create({
 			baseURL: 'https://api.binance.com',
@@ -8,11 +10,11 @@ class BinnaceConnect {
 	}
 
 	get24hr(pair: string) {
-		return this.api.get(`/api/v3/ticker/24hr?symbol=${pair}`)
+		return this.api.get<Trades[]>(`/api/v3/ticker/24hr?symbol=${pair}`)
 	}
 
 	getPairTrade(pair: string) {
-		return this.api.get(`/api/v3/trades?symbol=${pair}`)
+		return this.api.get<DayInfo>(`/api/v3/trades?symbol=${pair}`)
 	}
 }
 
