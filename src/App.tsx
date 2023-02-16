@@ -85,7 +85,7 @@ function App() {
 		<div className='App'>
 			<NavBar />
 			<Search getPairInfo={getPairInfo} fetchingError={fetchingError} />
-			<SearchResults trades={trades} dayInfo={dayInfo} sortData={sortData} sorter={sorter} />
+			<SearchResults trades={trades!} dayInfo={dayInfo!} sortData={sortData} sorter={sorter} />
 		</div>
 	)
 }

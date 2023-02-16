@@ -10,32 +10,39 @@ type ResultProps = {
 	sorter: Sorter
 }
 
+interface DataRow {
+	price: string
+	quantity: string
+	time: string
+} 
+
 const columns = [
 	{
 		name: 'PRICE',
-		selector: row => row.price,
+		selector: (row: DataRow) => row.price,
 		sortable: true,
 	},
 	{
 		name: 'QUANTITY',
-		selector: row => row.qty,
+		selector: (row: DataRow) => row.quantity,
 		sortable: true,
 	},
 	{
 		name: 'TIME',
-		selector: row => row.time,
+		selector: (row: DataRow) => row.time,
 		sortable: true,
 	},
 ]
 
 export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps) => {
-	const convertTime = trades?.map(trade => {
+	const convertData = trades?.map(trade => {
 		const date = new Date(trade.time)
 		const newTime = `${date.getHours().toString().padStart(2, '0')}:
 										 ${date.getMinutes().toString().padStart(2, '0')}:
 										 ${date.getSeconds().toString().padStart(2, '0')}`
 
-		return { ...trade, time: newTime }
+		const newObj = { price: trade.price, quantity: trade.qty , time: newTime }
+		return newObj
 	})
 
 	return (
@@ -48,7 +55,7 @@ export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps
 					</ColumnCentered>
 					<ColumnCentered>
 						<SmallText left> 24h%: </SmallText>
-						<MediumText change={dayInfo?.priceChangePercent}>
+						<MediumText change={dayInfo.priceChangePercent}>
 							{dayInfo?.priceChangePercent + '%'}
 						</MediumText>
 					</ColumnCentered>
@@ -57,7 +64,7 @@ export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps
 
 			<Spacer>
 				{trades && (
-					<DataTable columns={columns} data={convertTime} theme='dark' striped dense fixedHeader />
+					<DataTable columns={columns} data={convertData} theme='dark' striped dense fixedHeader />
 				)}
 			</Spacer>
 

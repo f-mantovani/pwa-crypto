@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+interface ButtonProps {
+  children: string | unknown
+}
+
 export const Input = styled.input`
   margin-left: 1rem;
   background-color: transparent;
@@ -10,7 +14,7 @@ export const Input = styled.input`
   text-align: center;
 `
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonProps>`
   font-family: inherit;
   background-color: var(--darker-bg);
   color: var(--font-color);

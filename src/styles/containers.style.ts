@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
-export const RowCentered = styled.div`
+interface CenterProps {
+	gap?: number
+	mt?: number
+	mb?: number
+}
+
+export const RowCentered = styled.div<CenterProps>`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
@@ -8,7 +14,7 @@ export const RowCentered = styled.div`
 	margin-bottom: ${({mb}) => `${mb}rem`};
 `
 
-export const ColumnCentered = styled.div`
+export const ColumnCentered = styled.div<CenterProps>`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

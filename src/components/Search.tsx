@@ -15,7 +15,7 @@ export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
 	const [error, setError] = useState<string>('')
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
-	const handleSubmit = async e => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setIsLoading(true)
 		setError('')

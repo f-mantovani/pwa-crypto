@@ -15,7 +15,7 @@ class BinnaceConnect {
 	}
 
 	 getPairTrade(pair: string) {
-		return this.api.get<AxiosResponse<Trades[]>>(`/api/v3/trades?symbol=${pair}`)
+		return this.api.get<Trades[]>(`/api/v3/trades?symbol=${pair}`)
 	}
 }
 
