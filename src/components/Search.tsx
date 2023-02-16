@@ -1,38 +1,62 @@
 import { useState } from 'react'
-import {ColumnCentered} from '../styles/containers.js'
+import { ColumnCentered } from '../styles/containers.style'
+import { ErrorText } from '../styles/text.style'
+import { Input, Button } from '../styles/form.style'
+import { HashLoader } from 'react-spinners'
 
 type SearchProps = {
-  getPairInfo: (pair: string) => void;
+	getPairInfo: (pair: string) => void
+	fetchingError: string
 }
 
-export const Search = ({ getPairInfo }: SearchProps) => {
+export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
 	const [first, setFirst] = useState<string>('')
 	const [against, setAgainst] = useState<string>('')
+	const [error, setError] = useState<string>('')
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault()
+		setIsLoading(true)
+		setError('')
 
-    const pair = first.toUpperCase() + against.toUpperCase()
+		if (!first || !against) {
+			setError('You must choose a pair of coins')
+			setIsLoading(false)
+			return
+		}
 
-		getPairInfo(pair)
+		const pair = first.toUpperCase() + against.toUpperCase()
+
+		await getPairInfo(pair)
+		setIsLoading(false)
 	}
 
 	return (
-		<form
-			onSubmit={handleSubmit}
-		
-		>
+		<form onSubmit={handleSubmit}>
 			<ColumnCentered gap={1} mt={2}>
-			<label>
-				Ticker:
-				<input type='text' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} />
-			</label>
-			<label>
-				Against:
-				<input type='text' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAgainst(e.target.value)} />
-			</label>
+				<label>
+					Coin:
+					<Input
+						type='text'
+						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)}
+						placeholder='ETH'
+					/>
+				</label>
 
-			<button> Search </button>
+				<label>
+					Against:
+					<Input
+						type='text'
+						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAgainst(e.target.value)}
+						placeholder='BTC'
+					/>
+				</label>
+
+				{error && <ErrorText> {error} </ErrorText>}
+				{fetchingError && !error && <ErrorText> {fetchingError} </ErrorText>}
+
+				<Button disabled={isLoading}> {isLoading ? <HashLoader color='#e9dfdf' size={16} /> : 'Search'} </Button>
 			</ColumnCentered>
 		</form>
 	)

@@ -2,8 +2,10 @@
 
 :root {
 	font-family: 'Lato', sans-serif;
-  --font-color: #F1F1F1;
-  --dark-bg: #232323;
+  --font-color: #e9dfdf;
+  --font-destructive: #E05252 ;
+  --dark-bg: #111111;
+  --darker-bg: #070707;
   --fs-small: 1rem;
   --fs-medium:1.5rem;
   --fs-large: 2rem;
@@ -32,6 +34,7 @@ html {
   color: var(--font-color)
 }
 
-th {
-  outline: 1px solid green
-}
+
+
+
+

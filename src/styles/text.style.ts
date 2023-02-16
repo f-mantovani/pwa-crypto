@@ -22,4 +22,11 @@ export const LargeText = styled.p`
 export const MediumText = styled.p`
   font-style: normal;
   font-size: var(--fs-medium);
+
+  color: ${({change}) => change > 0 ? 'green' : 'red'}
+`
+
+export const ErrorText = styled.p`
+  color: var(--font-destructive);
+  max-width: 80%;
 `

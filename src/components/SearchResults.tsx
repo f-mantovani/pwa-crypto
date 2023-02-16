@@ -1,6 +1,6 @@
 import { Trades, DayInfo, Sorter } from '../utils/types'
-import { SmallText, LargeText, MediumText } from '../styles/text.styles.js'
-import { RowCentered, ColumnCentered } from '../styles/containers.js'
+import { SmallText, LargeText, MediumText } from '../styles/text.style'
+import { RowCentered, ColumnCentered, Spacer } from '../styles/containers.style'
 import DataTable from 'react-data-table-component'
 
 type ResultProps = {
@@ -12,17 +12,17 @@ type ResultProps = {
 
 const columns = [
 	{
-		name: 'Price',
+		name: 'PRICE',
 		selector: row => row.price,
 		sortable: true,
 	},
 	{
-		name: 'Quantity',
+		name: 'QUANTITY',
 		selector: row => row.qty,
 		sortable: true,
 	},
 	{
-		name: 'Time',
+		name: 'TIME',
 		selector: row => row.time,
 		sortable: true,
 	},
@@ -41,19 +41,25 @@ export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps
 	return (
 		<div>
 			{dayInfo && (
-				<RowCentered gap={2}>
+				<RowCentered gap={2} mb={2}>
 					<ColumnCentered>
 						<SmallText left> Ticker: </SmallText>
 						<LargeText> {dayInfo?.symbol} </LargeText>
 					</ColumnCentered>
 					<ColumnCentered>
 						<SmallText left> 24h%: </SmallText>
-						<MediumText> {dayInfo?.priceChangePercent + '%'} </MediumText>
+						<MediumText change={dayInfo?.priceChangePercent}>
+							{dayInfo?.priceChangePercent + '%'}
+						</MediumText>
 					</ColumnCentered>
 				</RowCentered>
 			)}
 
-			{trades && <DataTable columns={columns} data={convertTime} theme='dark' />}
+			<Spacer>
+				{trades && (
+					<DataTable columns={columns} data={convertTime} theme='dark' striped dense fixedHeader />
+				)}
+			</Spacer>
 
 			{/* {trades && (
 				<>
