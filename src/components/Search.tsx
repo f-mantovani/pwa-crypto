@@ -1,8 +1,12 @@
 import { useState } from 'react'
 
-export const Search = ({ getPairInfo }) => {
-	const [first, setFirst] = useState('')
-	const [against, setAgainst] = useState('')
+type SearchProps = {
+  getPairInfo: (pair: string) => void;
+}
+
+export const Search = ({ getPairInfo }: SearchProps) => {
+	const [first, setFirst] = useState<string>('')
+	const [against, setAgainst] = useState<string>('')
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -25,11 +29,11 @@ export const Search = ({ getPairInfo }) => {
 		>
 			<label>
 				Ticker:
-				<input type='text' onChange={e => setFirst(e.target.value)} />
+				<input type='text' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} />
 			</label>
 			<label>
 				Against:
-				<input type='text' onChange={e => setAgainst(e.target.value)} />
+				<input type='text' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAgainst(e.target.value)} />
 			</label>
 
 			<button> Search </button>
