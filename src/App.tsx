@@ -10,7 +10,6 @@ const sorter: Sorter = {
 	lastPick: 'time',
 }
 
-
 function App() {
 	const [trades, setTrades] = useState<Trades[] | null>(null)
 	const [dayInfo, setDayInfo] = useState<DayInfo | null>(null)

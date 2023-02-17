@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ColumnCentered, RowCentered } from '../styles/containers.style'
+import { RowCentered } from '../styles/containers.style'
 import { ErrorText } from '../styles/text.style'
 import { Input, Button } from '../styles/form.style'
 import { HashLoader } from 'react-spinners'
