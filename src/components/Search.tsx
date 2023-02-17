@@ -34,7 +34,7 @@ export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<RowCentered searchField gap={1}>
+			<RowCentered gap={1}>
 				<label>
 					Coin:
 					<Input

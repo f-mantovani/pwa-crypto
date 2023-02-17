@@ -35,8 +35,10 @@ function App() {
 
 	}
 
+	// This function is also obsolete because I'm using the DataTable component that can be used to sort data
+	// just left here to showcase if needed, in a real environment would have removed 
 	const sortData = (sortBy: Sorter['lastPick']) => {
-		const copy = [...(trades || [])]
+		const copy = [...trades!]
 		if (sortBy === sorter.lastPick) {
 			if (sorter.order === 'asc') {
 				sorter.order = 'desc'
@@ -85,7 +87,7 @@ function App() {
 		<div className='App'>
 			<NavBar />
 			<Search getPairInfo={getPairInfo} fetchingError={fetchingError} />
-			<SearchResults trades={trades!} dayInfo={dayInfo!} sortData={sortData} sorter={sorter} />
+			<SearchResults trades={trades} dayInfo={dayInfo} sortData={sortData} sorter={sorter} />
 		</div>
 	)
 }

@@ -4,8 +4,8 @@ import { RowCentered, ColumnCentered, Spacer } from '../styles/containers.style'
 import DataTable from 'react-data-table-component'
 
 interface ResultProps {
-	trades: Trades[]
-	dayInfo: DayInfo
+	trades: Trades[] | null
+	dayInfo: DayInfo | null
 	sortData: (sortBy: Sorter['lastPick']) => void
 	sorter: Sorter
 }
@@ -14,7 +14,7 @@ interface DataRow {
 	price: string
 	quantity: string
 	time: string
-} 
+}
 
 const columns = [
 	{
@@ -34,16 +34,21 @@ const columns = [
 	},
 ]
 
-export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps) => {
-	const convertData = trades?.map(trade => {
+function convertData(tradeArray: ResultProps['trades']){
+	if (tradeArray == null) return []
+	return tradeArray.map(trade => {
 		const date = new Date(trade.time)
 		const newTime = `${date.getHours().toString().padStart(2, '0')}:
 										 ${date.getMinutes().toString().padStart(2, '0')}:
 										 ${date.getSeconds().toString().padStart(2, '0')}`
 
-		const newObj = { price: trade.price, quantity: trade.qty.slice(0, 6) , time: newTime }
+		const newObj = { price: trade.price, quantity: trade.qty.slice(0, 6), time: newTime }
 		return newObj
 	})
+}
+
+export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps) => {
+	const tradesConverted = convertData(trades)
 
 	return (
 		<div>
@@ -64,9 +69,22 @@ export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps
 
 			<Spacer>
 				{trades && (
-					<DataTable columns={columns} data={convertData} theme='dark' striped dense fixedHeader />
+					<DataTable
+						columns={columns}
+						data={tradesConverted}
+						theme='dark'
+						striped
+						dense
+						fixedHeader
+					/>
 				)}
 			</Spacer>
+
+			{/* 
+				That piece of code is actually obsolete because of the component DataTable, 
+				just left it here to showcase as it has the same sorting functionality, but in a real
+				life scenario would have been removed
+			*/}
 
 			{/* {trades && (
 				<>
