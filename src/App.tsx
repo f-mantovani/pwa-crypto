@@ -24,9 +24,7 @@ function App() {
 			
 			const dayAvgData = await binnanceConnect.get24hr(pair)
 
-			const tradesInReverse = [...tradesData.data].sort((a: Trades, b: Trades) => +b.time - +a.time)
-			
-			setTrades(tradesInReverse)
+			setTrades(tradesData.data)
 			setDayInfo(dayAvgData.data)
 			
 		} catch (error) {
