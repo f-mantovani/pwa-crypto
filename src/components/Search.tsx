@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { ColumnCentered } from '../styles/containers.style'
+import { ColumnCentered, RowCentered } from '../styles/containers.style'
 import { ErrorText } from '../styles/text.style'
 import { Input, Button } from '../styles/form.style'
 import { HashLoader } from 'react-spinners'
 
-type SearchProps = {
+interface SearchProps {
 	getPairInfo: (pair: string) => void
 	fetchingError: string
 }
@@ -34,7 +34,7 @@ export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<ColumnCentered gap={1} mt={2}>
+			<RowCentered searchField gap={1}>
 				<label>
 					Coin:
 					<Input
@@ -56,8 +56,9 @@ export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
 				{error && <ErrorText> {error} </ErrorText>}
 				{fetchingError && !error && <ErrorText> {fetchingError} </ErrorText>}
 
-				<Button disabled={isLoading}> {isLoading ? <HashLoader color='#e9dfdf' size={16} /> : 'Search'} </Button>
-			</ColumnCentered>
+				{isLoading ? <HashLoader color='#e9dfdf' size={16} /> : <Button> Search </Button>}
+				
+			</RowCentered>
 		</form>
 	)
 }

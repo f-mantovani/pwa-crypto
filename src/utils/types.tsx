@@ -1,4 +1,4 @@
-export type Trades = {
+export interface Trades {
 	id: number
 	isBestMatch: boolean
 	isBuyerMaker: boolean
@@ -8,7 +8,7 @@ export type Trades = {
 	time: number
 }
 
-export type DayInfo = {
+export interface DayInfo {
 	askPrice: string
 	askQty: string
 	bidPrice: string

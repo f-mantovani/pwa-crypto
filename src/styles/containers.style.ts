@@ -4,6 +4,7 @@ interface CenterProps {
 	gap?: number
 	mt?: number
 	mb?: number
+	searchField?: boolean
 }
 
 export const RowCentered = styled.div<CenterProps>`
@@ -12,6 +13,12 @@ export const RowCentered = styled.div<CenterProps>`
 	justify-content: space-around;
   gap: ${({gap}) => `${gap}rem`};
 	margin-bottom: ${({mb}) => `${mb}rem`};
+
+	${({searchField}) => searchField && `
+		justify-content: flex-start;
+		margin: 1rem;
+
+	`}
 `
 
 export const ColumnCentered = styled.div<CenterProps>`

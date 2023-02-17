@@ -3,7 +3,7 @@ import { SmallText, LargeText, MediumText } from '../styles/text.style'
 import { RowCentered, ColumnCentered, Spacer } from '../styles/containers.style'
 import DataTable from 'react-data-table-component'
 
-type ResultProps = {
+interface ResultProps {
 	trades: Trades[]
 	dayInfo: DayInfo
 	sortData: (sortBy: Sorter['lastPick']) => void
@@ -41,7 +41,7 @@ export const SearchResults = ({ trades, dayInfo, sortData, sorter }: ResultProps
 										 ${date.getMinutes().toString().padStart(2, '0')}:
 										 ${date.getSeconds().toString().padStart(2, '0')}`
 
-		const newObj = { price: trade.price, quantity: trade.qty , time: newTime }
+		const newObj = { price: trade.price, quantity: trade.qty.slice(0, 6) , time: newTime }
 		return newObj
 	})
 
