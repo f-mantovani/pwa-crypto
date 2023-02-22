@@ -9,14 +9,14 @@ const sorter: Sorter = {
 	lastPick: 'time',
 }
 
-function App() {
+function App(): JSX.Element {
 	const { trades, dayInfo, fetchingError, getPairData, sortData	} = useGetData()
 
 	return (
 		<div className='App'>
 			<NavBar />
-			<Search getPairInfo={getPairData} fetchingError={fetchingError} />
-			<SearchResults trades={trades} dayInfo={dayInfo} sortData={sortData} sorter={sorter} />
+			<Search getPairData={getPairData} fetchingError={fetchingError} />
+			<SearchResults trades={trades} dayInfo={dayInfo} />
 		</div>
 	)
 }

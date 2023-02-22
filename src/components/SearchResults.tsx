@@ -7,7 +7,7 @@ import { convertData } from '../utils/formatData'
 import { SmallText, LargeText, MediumText } from '../styles/text.style'
 import { Spacer, FlexContainer } from '../styles/containers.style'
 
-export const SearchResults = ({ trades, dayInfo }: ResultProps) => {
+export const SearchResults = ({ trades, dayInfo }: ResultProps): JSX.Element => {
 	const tradesConverted = convertData(trades)
 
 	return (

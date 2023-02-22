@@ -9,7 +9,7 @@ import { ErrorText } from '../styles/text.style'
 import { Input, Button, Loader } from '../styles/form.style'
 
 
-export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
+export const Search = ({ getPairData, fetchingError }: SearchProps): JSX.Element => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const {
@@ -18,14 +18,15 @@ export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
 		formState: { errors },
 	} = useForm()
 
-	async function onSubmit({ coin, against }: FormData) {
+	async function onSubmit({ coin, against }: Partial<FormData>): Promise<void> {
+
 		if (!coin || !against) return
 
 		setIsLoading(true)
 
 		const pair = coin.toUpperCase() + against.toUpperCase()
 
-		await getPairInfo(pair)
+		await getPairData(pair)
 		setIsLoading(false)
 	}
 

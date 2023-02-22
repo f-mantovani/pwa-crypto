@@ -1,20 +1,20 @@
 import { useState } from 'react'
-import { DayInfo, Trades, Sorter, IApiCall } from '../utils/types'
+import { DayInfo, Trades, Sorter, IApiCall, IGetData } from '../utils/types'
 import binanceConnect from '../utils/binanceConnect'
 
-const useGetData = () => {
+const useGetData = (): IGetData => {
 	const [trades, setTrades] = useState<Trades[] | null>(null)
 	const [dayInfo, setDayInfo] = useState<DayInfo | null>(null)
 	const [fetchingError, setFetchingError] = useState<string>('')
 
-  const getPairData = async (pair: string) => {
+  const getPairData = async (pair: string):	Promise<void> => {
 		setFetchingError('')
 
 		try {
 			const apiCalls = [binanceConnect.getPairTrade(pair), binanceConnect.get24hr(pair)]
 			const data = await Promise.all(apiCalls)
 
-			const pairData: IApiCall = {} 
+			const pairData: Partial<IApiCall> = {} 
 
 			data.forEach(item => {
 				if (Array.isArray(item.data)) {
@@ -35,7 +35,7 @@ const useGetData = () => {
 
 		// This function is also obsolete because I'm using the DataTable component that can be used to sort data
 	// just left here to showcase if needed, in a real environment would have removed 
-	const sortData = (sortBy: Sorter['lastPick'], sorter: Sorter) => {
+	const sortData = (sortBy: Sorter['lastPick'], sorter: Sorter): void => {
 		const copy = [...trades!]
 		if (sortBy === sorter.lastPick) {
 			if (sorter.order === 'asc') {

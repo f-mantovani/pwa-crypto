@@ -5,7 +5,7 @@ export interface Trades {
 	price: string
 	qty: string
 	quoteQty: string
-	time: number
+	time: number | string
 }
 export interface DayInfo {
 	askPrice: string
@@ -37,8 +37,7 @@ export interface Sorter  {
 export interface ResultProps {
 	trades: Trades[] | null
 	dayInfo: DayInfo | null
-	sortData: (sortBy: Sorter['lastPick'], sorter: Sorter) => void
-	sorter: Sorter
+
 }
 export interface DataRow {
 	price: string
@@ -46,14 +45,20 @@ export interface DataRow {
 	time: string
 }
 export interface SearchProps {
-	getPairInfo: (pair: string) => void
 	fetchingError: string
+	getPairData: (pair: string) => Promise<void>
 }
+export interface IGetData extends SearchProps {
+	trades: Trades[] | null
+	dayInfo: DayInfo | null
+	sortData: (sortBy: Sorter['lastPick'], sorter: Sorter) => void
+}
+
 export interface IApiCall {
-	tradeData?: Trades[]
-	dayInfo?: DayInfo 
+	tradeData: Trades[]
+	dayInfo: DayInfo 
 }
 export interface FormData {
-	coin?: string
-	against?: string
+	coin: string
+	against: string
 }
