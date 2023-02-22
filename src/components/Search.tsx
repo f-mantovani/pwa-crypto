@@ -1,64 +1,63 @@
 import { useState } from 'react'
-import { RowCentered } from '../styles/containers.style'
-import { ErrorText } from '../styles/text.style'
-import { Input, Button } from '../styles/form.style'
 import { HashLoader } from 'react-spinners'
+import { useForm } from 'react-hook-form'
 
-interface SearchProps {
-	getPairInfo: (pair: string) => void
-	fetchingError: string
-}
+import { FormData, SearchProps } from '../utils/types'
+
+import { FlexContainer } from '../styles/containers.style'
+import { ErrorText } from '../styles/text.style'
+import { Input, Button, Loader } from '../styles/form.style'
+
 
 export const Search = ({ getPairInfo, fetchingError }: SearchProps) => {
-	const [first, setFirst] = useState<string>('')
-	const [against, setAgainst] = useState<string>('')
-	const [error, setError] = useState<string>('')
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm()
+
+	async function onSubmit({ coin, against }: FormData) {
+		if (!coin || !against) return
+
 		setIsLoading(true)
-		setError('')
 
-		if (!first || !against) {
-			setError('You must choose a pair of coins')
-			setIsLoading(false)
-			return
-		}
-
-		const pair = first.toUpperCase() + against.toUpperCase()
+		const pair = coin.toUpperCase() + against.toUpperCase()
 
 		await getPairInfo(pair)
 		setIsLoading(false)
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<RowCentered gap={1}>
-				<label>
-					Coin:
-					<Input
-						type='text'
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)}
-						placeholder='ETH'
-					/>
-				</label>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<FlexContainer row form>
+				<FlexContainer column>
+					<label>
+						Coin:
+						<Input {...register('coin', { required: true })} placeholder='ETH' />
+						{errors.coin && <ErrorText> Select a coin </ErrorText>}
+					</label>
+				</FlexContainer>
+				<FlexContainer column>
+					<label>
+						Against:
+						<Input {...register('against', { required: true })} placeholder='BTC' />
+						{errors.against && <ErrorText> Select a pair to compare </ErrorText>}
+					</label>
+				</FlexContainer>
 
-				<label>
-					Against:
-					<Input
-						type='text'
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAgainst(e.target.value)}
-						placeholder='BTC'
-					/>
-				</label>
-
-				{error && <ErrorText> {error} </ErrorText>}
-				{fetchingError && !error && <ErrorText> {fetchingError} </ErrorText>}
-
-				{isLoading ? <HashLoader color='#e9dfdf' size={16} /> : <Button> Search </Button>}
-				
-			</RowCentered>
+				{isLoading ? (
+					<Loader>
+						<HashLoader color='#e9dfdf' size={16} />
+					</Loader>
+				) : (
+					<Button type='submit'> Submit </Button>
+				)}
+			</FlexContainer>
+			{!errors.coin && !errors.against && fetchingError && (
+				<ErrorText pairNotFound> {fetchingError} </ErrorText>
+			)}
 		</form>
 	)
 }

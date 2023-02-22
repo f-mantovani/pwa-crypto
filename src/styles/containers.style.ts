@@ -4,26 +4,32 @@ interface CenterProps {
 	gap?: number
 	mt?: number
 	mb?: number
-	searchField?: boolean
+	row?: boolean
+	column?: boolean
+	form?: boolean
+
 }
 
-export const RowCentered = styled.div<CenterProps>`
+export const FlexContainer = styled.div<CenterProps>`
 	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	gap: ${({ gap }) => `${gap}rem`};
-	margin: 1rem;
-	margin-bottom: ${({ mb }) => `${mb}rem`};
-`
+	margin: .75rem 0 .75rem .5rem;
 
-export const ColumnCentered = styled.div<CenterProps>`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	${({ row }) => row && `
+		align-items: flex-start;
+		justify-content: flex-start;
+	`}
+
+	${({ column }) => column && `
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	`}
+	
 	gap: ${({ gap }) => `${gap}rem`};
+	margin-bottom: ${({ mb }) => `${mb}rem`};
 	margin-top: ${({ mt }) => `${mt}rem`};
 `
+
 export const Spacer = styled.div`
 	margin: 1rem;
 `

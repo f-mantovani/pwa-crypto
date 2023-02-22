@@ -7,6 +7,10 @@ interface MediumProps {
 	change: string
 }
 
+interface ErrorProps {
+	pairNotFound?: boolean
+}
+
 export const SmallText = styled.p<SmallProps>`
 	font-style: normal;
 	font-size: var(--fs-small);
@@ -36,7 +40,15 @@ export const MediumText = styled.p<MediumProps>`
 	color: ${({ change }) => (+change > 0 ? 'green' : 'red')};
 `
 
-export const ErrorText = styled.p`
+export const ErrorText = styled.p<ErrorProps>`
 	color: var(--font-destructive);
-	max-width: 80%;
+	max-width: 150px;
+	position: absolute;
+
+	${({ pairNotFound }) => pairNotFound && `
+		position: relative;
+		max-width: 270px;
+		margin-left: 1rem;
+		margin-bottom: -1.5rem;
+	`}
 `

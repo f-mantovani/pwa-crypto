@@ -7,7 +7,6 @@ export interface Trades {
 	quoteQty: string
 	time: number
 }
-
 export interface DayInfo {
 	askPrice: string
 	askQty: string
@@ -31,8 +30,30 @@ export interface DayInfo {
 	volume: string
 	weightedAvgPrice: string
 }
-
-export type Sorter = {
+export interface Sorter  {
 	order: 'asc' | 'desc'
 	lastPick: 'time' | 'price' | 'quantity'
+}
+export interface ResultProps {
+	trades: Trades[] | null
+	dayInfo: DayInfo | null
+	sortData: (sortBy: Sorter['lastPick'], sorter: Sorter) => void
+	sorter: Sorter
+}
+export interface DataRow {
+	price: string
+	quantity: string
+	time: string
+}
+export interface SearchProps {
+	getPairInfo: (pair: string) => void
+	fetchingError: string
+}
+export interface IApiCall {
+	tradeData?: Trades[]
+	dayInfo?: DayInfo 
+}
+export interface FormData {
+	coin?: string
+	against?: string
 }
