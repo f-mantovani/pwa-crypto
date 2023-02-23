@@ -53,11 +53,6 @@ export interface IGetData extends SearchProps {
 	dayInfo: DayInfo | null
 	sortData: (sortBy: Sorter['lastPick'], sorter: Sorter) => void
 }
-
-export interface IApiCall {
-	tradeData: Trades[]
-	dayInfo: DayInfo 
-}
 export interface FormData {
 	coin: string
 	against: string

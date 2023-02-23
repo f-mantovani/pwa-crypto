@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DayInfo, Trades, Sorter, IApiCall, IGetData } from '../utils/types'
+import { DayInfo, Trades, Sorter, IGetData } from '../utils/types'
 import binanceConnect from '../utils/binanceConnect'
 
 const useGetData = (): IGetData => {
@@ -12,20 +12,10 @@ const useGetData = (): IGetData => {
 
 		try {
 			const apiCalls = [binanceConnect.getPairTrade(pair), binanceConnect.get24hr(pair)]
-			const data = await Promise.all(apiCalls)
+			const [trades, dayInfo] = await Promise.all(apiCalls)
 
-			const pairData: Partial<IApiCall> = {} 
-
-			data.forEach(item => {
-				if (Array.isArray(item.data)) {
-					pairData.tradeData = item.data
-				} else {
-					pairData.dayInfo = item.data
-				}
-			})
-			
-			setTrades(pairData.tradeData!)
-			setDayInfo(pairData.dayInfo!)
+			setTrades(trades.data as Trades[])
+			setDayInfo(dayInfo.data as DayInfo)
 			
 		} catch (error) {
 			setFetchingError("Sorry we couldn't find a matching pair with those coins")
