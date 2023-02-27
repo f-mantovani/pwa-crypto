@@ -15,4 +15,4 @@ As a user you can:
   - Suggest: Coin (ETH) and Against (BTC)
 - The data will be fetched from Binance public API
 - The data will be displayed in a table
-- The sata could be sorted by the time, price or quantity of the orders
+- The data could be sorted by the time, price or quantity of the orders
