@@ -1,4 +1,4 @@
-import { DataRow } from "./types";
+import { DataRow } from "./interfaces";
 
 export const columns = [
 	{

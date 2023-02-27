@@ -1,6 +1,6 @@
 import { Search } from './components/Search'
 import { SearchResults } from './components/SearchResults'
-import { Sorter } from './utils/types'
+import { Sorter } from './utils/interfaces'
 import { NavBar } from './components/NavBar'
 import useGetData from './hooks/useGetData'
 

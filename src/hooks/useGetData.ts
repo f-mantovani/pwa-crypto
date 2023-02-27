@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { DayInfo, Trades, Sorter, IGetData } from '../utils/types'
+import { DayInfo, Trades, Sorter, GetData } from '../utils/interfaces'
 import binanceConnect from '../utils/binanceConnect'
 
-const useGetData = (): IGetData => {
+const useGetData = (): GetData => {
 	const [trades, setTrades] = useState<Trades[] | null>(null)
 	const [dayInfo, setDayInfo] = useState<DayInfo | null>(null)
 	const [fetchingError, setFetchingError] = useState<string>('')
@@ -12,7 +12,7 @@ const useGetData = (): IGetData => {
 
 		const apiCalls = [binanceConnect.getPairTrade(pair), binanceConnect.get24hr(pair)]
 		const [trades, dayInfo] = await Promise.allSettled(apiCalls)
-
+	
 		if (trades.status === 'rejected' || dayInfo.status === 'rejected') {
 			setFetchingError("Sorry but we couldn't fetch data for this pair. Please try again later.")
 			return

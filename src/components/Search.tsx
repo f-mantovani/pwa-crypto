@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { HashLoader } from 'react-spinners'
 import { useForm } from 'react-hook-form'
 
-import { FormData, SearchProps } from '../utils/types'
+import { FormData, SearchProps } from '../utils/interfaces'
 
 import { FlexContainer } from '../styles/containers.style'
 import { ErrorText } from '../styles/text.style'

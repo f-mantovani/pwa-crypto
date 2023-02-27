@@ -48,7 +48,7 @@ export interface SearchProps {
 	fetchingError: string
 	getPairData: (pair: string) => Promise<void>
 }
-export interface IGetData extends SearchProps {
+export interface GetData extends SearchProps {
 	trades: Trades[] | null
 	dayInfo: DayInfo | null
 	sortData: (sortBy: Sorter['lastPick'], sorter: Sorter) => void

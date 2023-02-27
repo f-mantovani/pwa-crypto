@@ -1,7 +1,7 @@
 import DataTable from 'react-data-table-component'
 
 import { columns } from '../utils/dataTable'
-import { ResultProps } from '../utils/types'
+import { ResultProps } from '../utils/interfaces'
 import { convertData } from '../utils/formatData'
 
 import { SmallText, LargeText, MediumText } from '../styles/text.style'

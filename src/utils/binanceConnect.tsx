@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
-import { Trades, DayInfo } from './types'
+import { Trades, DayInfo } from './interfaces'
 
 class BinnaceConnect {
 	api: AxiosInstance

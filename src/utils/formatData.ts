@@ -1,4 +1,4 @@
-import { DataRow, ResultProps } from './types'
+import { DataRow, ResultProps } from './interfaces'
 import dayjs from 'dayjs'
 
 export function convertData(tradeArray: ResultProps['trades']): DataRow[] {
