@@ -7,24 +7,29 @@ const useGetData = (): IGetData => {
 	const [dayInfo, setDayInfo] = useState<DayInfo | null>(null)
 	const [fetchingError, setFetchingError] = useState<string>('')
 
-  const getPairData = async (pair: string):	Promise<void> => {
+	const getPairData = async (pair: string): Promise<void> => {
 		setFetchingError('')
 
-		try {
-			const apiCalls = [binanceConnect.getPairTrade(pair), binanceConnect.get24hr(pair)]
-			const [trades, dayInfo] = await Promise.all(apiCalls)
+		const apiCalls = [binanceConnect.getPairTrade(pair), binanceConnect.get24hr(pair)]
+		const [trades, dayInfo] = await Promise.allSettled(apiCalls)
 
-			setTrades(trades.data as Trades[])
-			setDayInfo(dayInfo.data as DayInfo)
-			
-		} catch (error) {
-			setFetchingError("Sorry we couldn't find a matching pair with those coins")
+		if (trades.status === 'rejected' || dayInfo.status === 'rejected') {
+			setFetchingError("Sorry but we couldn't fetch data for this pair. Please try again later.")
+			return
 		}
 
+		if (trades.status === 'fulfilled') {
+			setTrades(trades.value.data as Trades[])
+		}
+
+		if (dayInfo.status === 'fulfilled') {
+			setDayInfo(dayInfo.value.data as DayInfo)
+		}
+		
 	}
 
-		// This function is also obsolete because I'm using the DataTable component that can be used to sort data
-	// just left here to showcase if needed, in a real environment would have removed 
+	// This function is also obsolete because I'm using the DataTable component that can be used to sort data
+	// just left here to showcase if needed, in a real environment would have removed
 	const sortData = (sortBy: Sorter['lastPick'], sorter: Sorter): void => {
 		const copy = [...trades!]
 		if (sortBy === sorter.lastPick) {
@@ -39,7 +44,7 @@ const useGetData = (): IGetData => {
 			sorter.order = 'desc'
 			sorter.lastPick = sortBy
 		}
-    
+
 		const sort = {
 			time: {
 				asc() {
@@ -75,5 +80,3 @@ const useGetData = (): IGetData => {
 }
 
 export default useGetData
-
-
