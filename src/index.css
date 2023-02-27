@@ -6,7 +6,8 @@
   --font-destructive: #E05252 ;
   --dark-bg: #111111;
   --darker-bg: #070707;
-  --fs-small: 1rem;
+  --fs-xsmall: 0.9rem;
+  --fs-small: 1.1rem;
   --fs-medium:1.5rem;
   --fs-large: 2rem;
   --fw-bold: 900;

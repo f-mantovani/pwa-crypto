@@ -1,8 +1,8 @@
 import { Search } from './components/Search'
 import { SearchResults } from './components/SearchResults'
 import { Sorter } from './utils/interfaces'
-import { NavBar } from './components/NavBar'
 import useGetData from './hooks/useGetData'
+import { Info } from './components/Info'
 
 const sorter: Sorter = {
 	order: 'desc',
@@ -14,7 +14,7 @@ function App(): JSX.Element {
 
 	return (
 		<div className='App'>
-			<NavBar />
+			<Info />
 			<Search getPairData={getPairData} fetchingError={fetchingError} />
 			<SearchResults trades={trades} dayInfo={dayInfo} />
 		</div>

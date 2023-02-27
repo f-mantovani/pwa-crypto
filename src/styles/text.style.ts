@@ -4,26 +4,28 @@ interface SmallProps {
 	left?: boolean
 }
 interface MediumProps {
-	change: string
+	change?: string
 }
 
 interface ErrorProps {
 	pairNotFound?: boolean
 }
 
+export const ExtraSmall = styled.p`
+	font-style: normal;
+	font-size: var(--fs-xsmall);
+	line-height: 1.4;
+`
+
 export const SmallText = styled.p<SmallProps>`
 	font-style: normal;
 	font-size: var(--fs-small);
 
-	${props =>
-		props.bold &&
-		`
+	${({ bold }) =>bold && `
     font-weight: var(--fw-bold);
   `}
 
-	${props =>
-		props.left &&
-		`
+	${({ left }) =>left && `
     align-self: flex-start; 
   `}
 `
@@ -37,7 +39,7 @@ export const MediumText = styled.p<MediumProps>`
 	font-style: normal;
 	font-size: var(--fs-medium);
 
-	color: ${({ change }) => (+change > 0 ? 'green' : 'red')};
+	color: ${({ change }) => (change ? (+change > 0 ? 'green' : 'red') : null)};
 `
 
 export const ErrorText = styled.p<ErrorProps>`
@@ -45,7 +47,9 @@ export const ErrorText = styled.p<ErrorProps>`
 	max-width: 150px;
 	position: absolute;
 
-	${({ pairNotFound }) => pairNotFound && `
+	${({ pairNotFound }) =>
+		pairNotFound &&
+		`
 		position: relative;
 		max-width: 270px;
 		margin-left: 1rem;
