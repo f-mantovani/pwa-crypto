@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DayInfo, Trades, Sorter, GetData } from '../utils/interfaces'
+import { DayInfo, Trades, GetData } from '../utils/interfaces'
 import binanceConnect from '../utils/binanceConnect'
 
 const useGetData = (): GetData => {
@@ -28,55 +28,8 @@ const useGetData = (): GetData => {
 		
 	}
 
-	// This function is also obsolete because I'm using the DataTable component that can be used to sort data
-	// just left here to showcase if needed, in a real environment would have removed
-	const sortData = (sortBy: Sorter['lastPick'], sorter: Sorter): void => {
-		const copy = [...trades!]
-		if (sortBy === sorter.lastPick) {
-			if (sorter.order === 'asc') {
-				sorter.order = 'desc'
-			} else {
-				sorter.order = 'asc'
-			}
-		}
 
-		if (sortBy !== sorter.lastPick) {
-			sorter.order = 'desc'
-			sorter.lastPick = sortBy
-		}
-
-		const sort = {
-			time: {
-				asc() {
-					copy.sort((a: Trades, b: Trades) => +a.time - +b.time)
-				},
-				desc() {
-					copy.sort((a: Trades, b: Trades) => +b.time - +a.time)
-				},
-			},
-			price: {
-				asc() {
-					copy.sort((a: Trades, b: Trades) => +a.price - +b.price)
-				},
-				desc() {
-					copy.sort((a: Trades, b: Trades) => +b.price - +a.price)
-				},
-			},
-			quantity: {
-				asc() {
-					copy.sort((a: Trades, b: Trades) => +a.qty - +b.qty)
-				},
-				desc() {
-					copy.sort((a: Trades, b: Trades) => +b.qty - +a.qty)
-				},
-			},
-		}
-		sort[sorter.lastPick][sorter.order]()
-
-		setTrades(copy)
-	}
-
-	return { trades, dayInfo, fetchingError, getPairData, sortData }
+	return { trades, dayInfo, fetchingError, getPairData }
 }
 
 export default useGetData

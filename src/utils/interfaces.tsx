@@ -51,7 +51,6 @@ export interface SearchProps {
 export interface GetData extends SearchProps {
 	trades: Trades[] | null
 	dayInfo: DayInfo | null
-	sortData: (sortBy: Sorter['lastPick'], sorter: Sorter) => void
 }
 export interface FormData {
 	coin: string
