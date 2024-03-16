@@ -2,7 +2,7 @@
 
 :root {
 	font-family: 'Lato', sans-serif;
-  --font-color: #e9dfdf;
+  --font-color: #111111;
   --font-destructive: #E05252 ;
   --dark-bg: #111111;
   --darker-bg: #070707;
@@ -25,7 +25,7 @@ input {
   font-family: inherit;
 }
 
-img {
+img { 
   max-width: 100%;
 }
 
